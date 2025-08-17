@@ -1,0 +1,334 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.calculator {
+    background: rgba(17, 17, 17, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.calculator-header h1 {
+    color: #3b82f6;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-btn {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.back-btn:hover {
+    background: rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+.display-container {
+    background: #0a0a0a;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.secondary-display {
+    font-size: 1rem;
+    color: #94a3b8;
+    min-height: 1.5rem;
+    text-align: right;
+    word-wrap: break-word;
+}
+
+.main-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: right;
+    margin-top: 0.5rem;
+    word-wrap: break-word;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.button-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+.btn {
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    min-height: 60px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn.number {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn.number:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btn.operator {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.btn.operator:hover {
+    background: rgba(59, 130, 246, 0.3);
+    color: #ffffff;
+}
+
+.btn.function {
+    background: rgba(139, 92, 246, 0.2);
+    color: #8b5cf6;
+    border-color: rgba(139, 92, 246, 0.3);
+    font-size: 0.9rem;
+}
+
+.btn.function:hover {
+    background: rgba(139, 92, 246, 0.3);
+    color: #ffffff;
+}
+
+.btn.equals {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: #ffffff;
+}
+
+.btn.equals:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+.btn.clear {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.btn.clear:hover {
+    background: rgba(239, 68, 68, 0.3);
+    color: #ffffff;
+}
+
+.btn.memory {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.3);
+    font-size: 0.9rem;
+}
+
+.btn.memory:hover {
+    background: rgba(34, 197, 94, 0.3);
+    color: #ffffff;
+}
+
+.history-container {
+    background: rgba(10, 10, 10, 0.8);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.history-container h3 {
+    color: #3b82f6;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.history-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.history-item {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #3b82f6;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.history-expression {
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.history-result {
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Custom Scrollbar */
+.history-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: #1d4ed8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .calculator {
+        padding: 1.5rem;
+    }
+
+    .calculator-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .calculator-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .main-display {
+        font-size: 2rem;
+    }
+
+    .btn {
+        padding: 0.8rem;
+        font-size: 1rem;
+        min-height: 50px;
+    }
+
+    .btn.function {
+        font-size: 0.8rem;
+    }
+
+    .btn.memory {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-row {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .btn {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+        min-height: 45px;
+    }
+
+    .main-display {
+        font-size: 1.8rem;
+    }
+}
+
+/* Animation for button press */
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.btn:active {
+    animation: buttonPress 0.1s ease;
+}
+
+/* Error state */
+.display-error {
+    color: #ef4444 !important;
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.calculating {
+    animation: pulse 1s infinite;
+}

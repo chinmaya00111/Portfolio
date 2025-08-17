@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System - Chinmaya Sahu</title>
+    <link rel="stylesheet" href="taskmanager.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h2><i class="fas fa-tasks"></i> TaskMaster</h2>
+            </div>
+            <div class="nav-actions">
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value" id="totalTasks">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Pending</span>
+                        <span class="stat-value pending" id="pendingTasks">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-value completed" id="completedTasks">0</span>
+                    </div>
+                </div>
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Portfolio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Task Creation Section -->
+            <section class="task-creation">
+                <div class="creation-card">
+                    <h3><i class="fas fa-plus-circle"></i> Create New Task</h3>
+                    <form class="task-form" id="taskForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="taskTitle">Task Title *</label>
+                                <input type="text" id="taskTitle" name="title" placeholder="Enter task title..." required>
+                                <span class="error-message" id="titleError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskCategory">Category</label>
+                                <select id="taskCategory" name="category">
+                                    <option value="personal">Personal</option>
+                                    <option value="work">Work</option>
+                                    <option value="study">Study</option>
+                                    <option value="health">Health</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="taskPriority">Priority</label>
+                                <select id="taskPriority" name="priority">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                    <option value="urgent">Urgent</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDueDate">Due Date</label>
+                                <input type="datetime-local" id="taskDueDate" name="dueDate">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taskDescription">Description</label>
+                            <textarea id="taskDescription" name="description" placeholder="Add task description..." rows="3"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Task
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                                <i class="fas fa-undo"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Filters and Search -->
+            <section class="task-filters">
+                <div class="filter-card">
+                    <div class="filter-row">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search tasks...">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                        
+                        <div class="filter-controls">
+                            <select id="categoryFilter">
+                                <option value="all">All Categories</option>
+                                <option value="personal">Personal</option>
+                                <option value="work">Work</option>
+                                <option value="study">Study</option>
+                                <option value="health">Health</option>
+                                <option value="finance">Finance</option>
+                                <option value="other">Other</option>
+                            </select>
+                            
+                            <select id="priorityFilter">
+                                <option value="all">All Priorities</option>
+                                <option value="urgent">Urgent</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                            
+                            <select id="statusFilter">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                                <option value="overdue">Overdue</option>
+                            </select>
+                            
+                            <select id="sortBy">
+                                <option value="created">Created Date</option>
+                                <option value="dueDate">Due Date</option>
+                                <option value="priority">Priority</option>
+                                <option value="title">Title</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button class="btn btn-info" onclick="clearFilters()">
+                            <i class="fas fa-filter"></i> Clear Filters
+                        </button>
+                        <button class="btn btn-success" onclick="exportTasks()">
+                            <i class="fas fa-download"></i> Export Tasks
+                        </button>
+                        <button class="btn btn-warning" onclick="importTasks()">
+                            <i class="fas fa-upload"></i> Import Tasks
+                        </button>
+                        <button class="btn btn-danger" onclick="clearAllTasks()">
+                            <i class="fas fa-trash"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks Display -->
+            <section class="tasks-section">
+                <div class="tasks-header">
+                    <h3 id="tasksTitle">All Tasks</h3>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid" onclick="toggleView('grid')">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" onclick="toggleView('list')">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tasks-container" id="tasksContainer">
+                    <div class="empty-state" id="emptyState">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h4>No Tasks Found</h4>
+                        <p>Create your first task to get started!</p>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container" id="paginationContainer">
+                    <button class="btn btn-secondary" id="prevPage" onclick="changePage(-1)">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <span class="page-info" id="pageInfo">Page 1 of 1</span>
+                    <button class="btn btn-secondary" id="nextPage" onclick="changePage(1)">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Task Modal -->
+    <div class="modal-overlay" id="taskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Task Details</h3>
+                <button class="close-modal" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="task-details">
+                    <div class="detail-group">
+                        <label>Title:</label>
+                        <h4 id="modalTaskTitle">Task Title</h4>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-group">
+                            <label>Category:</label>
+                            <span class="category-badge" id="modalTaskCategory">Personal</span>
+                        </div>
+                        <div class="detail-group">
+                            <label>Priority:</label>
+                            <span class="priority-badge" id="modalTaskPriority">Medium</span>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-group">
+                            <label>Created:</label>
+                            <span id="modalTaskCreated">-</span>
+                        </div>
+                        <div class="detail-group">
+                            <label>Due Date:</label>
+                            <span id="modalTaskDue">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-group">
+                        <label>Status:</label>
+                        <span class="status-badge" id="modalTaskStatus">Pending</span>
+                    </div>
+                    
+                    <div class="detail-group">
+                        <label>Description:</label>
+                        <p id="modalTaskDescription">No description available.</p>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-primary" id="modalEditBtn" onclick="editTask()">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-success" id="modalCompleteBtn" onclick="toggleTaskStatus()">
+                        <i class="fas fa-check"></i> Complete
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteTaskFromModal()">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Task</h3>
+                <button class="close-modal" onclick="closeEditModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="task-form" id="editTaskForm">
+                    <input type="hidden" id="editTaskId">
+                    
+                    <div class="form-group">
+                        <label for="editTaskTitle">Task Title *</label>
+                        <input type="text" id="editTaskTitle" name="title" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editTaskCategory">Category</label>
+                            <select id="editTaskCategory" name="category">
+                                <option value="personal">Personal</option>
+                                <option value="work">Work</option>
+                                <option value="study">Study</option>
+                                <option value="health">Health</option>
+                                <option value="finance">Finance</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTaskPriority">Priority</label>
+                            <select id="editTaskPriority" name="priority">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                                <option value="urgent">Urgent</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editTaskDueDate">Due Date</label>
+                        <input type="datetime-local" id="editTaskDueDate" name="dueDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editTaskDescription">Description</label>
+                        <textarea id="editTaskDescription" name="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Input for Import -->
+    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script src="taskmanager.js"></script>
+</body>
+</html>

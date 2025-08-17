@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator - Chinmaya Sahu</title>
+    <link rel="stylesheet" href="calculator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <div class="calculator-header">
+                <h1><i class="fas fa-calculator"></i> Scientific Calculator</h1>
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+            </div>
+            
+            <div class="display-container">
+                <div class="secondary-display" id="secondaryDisplay"></div>
+                <div class="main-display" id="mainDisplay">0</div>
+            </div>
+
+            <div class="buttons-container">
+                <!-- Memory and Clear Functions -->
+                <div class="button-row">
+                    <button class="btn memory" onclick="memoryRecall()">MR</button>
+                    <button class="btn memory" onclick="memoryClear()">MC</button>
+                    <button class="btn memory" onclick="memoryStore()">MS</button>
+                    <button class="btn memory" onclick="memoryAdd()">M+</button>
+                    <button class="btn clear" onclick="clearAll()">C</button>
+                </div>
+
+                <!-- Scientific Functions -->
+                <div class="button-row">
+                    <button class="btn function" onclick="insertFunction('sin(')">sin</button>
+                    <button class="btn function" onclick="insertFunction('cos(')">cos</button>
+                    <button class="btn function" onclick="insertFunction('tan(')">tan</button>
+                    <button class="btn function" onclick="insertFunction('log(')">log</button>
+                    <button class="btn function" onclick="insertFunction('ln(')">ln</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn function" onclick="insertFunction('sqrt(')">√</button>
+                    <button class="btn function" onclick="insertValue('Math.PI')">π</button>
+                    <button class="btn function" onclick="insertValue('Math.E')">e</button>
+                    <button class="btn function" onclick="insertOperator('^')">x^y</button>
+                    <button class="btn function" onclick="factorial()">x!</button>
+                </div>
+
+                <!-- Number Pad and Basic Operations -->
+                <div class="button-row">
+                    <button class="btn operator" onclick="insertOperator('(')">(</button>
+                    <button class="btn operator" onclick="insertOperator(')')">)</button>
+                    <button class="btn operator" onclick="insertOperator('/')">/</button>
+                    <button class="btn operator" onclick="deleteLast()">⌫</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn number" onclick="insertNumber('7')">7</button>
+                    <button class="btn number" onclick="insertNumber('8')">8</button>
+                    <button class="btn number" onclick="insertNumber('9')">9</button>
+                    <button class="btn operator" onclick="insertOperator('*')">×</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn number" onclick="insertNumber('4')">4</button>
+                    <button class="btn number" onclick="insertNumber('5')">5</button>
+                    <button class="btn number" onclick="insertNumber('6')">6</button>
+                    <button class="btn operator" onclick="insertOperator('-')">-</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn number" onclick="insertNumber('1')">1</button>
+                    <button class="btn number" onclick="insertNumber('2')">2</button>
+                    <button class="btn number" onclick="insertNumber('3')">3</button>
+                    <button class="btn operator" onclick="insertOperator('+')">+</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn number" onclick="toggleSign()">±</button>
+                    <button class="btn number" onclick="insertNumber('0')">0</button>
+                    <button class="btn number" onclick="insertOperator('.')">.</button>
+                    <button class="btn equals" onclick="calculate()">=</button>
+                </div>
+            </div>
+
+            <div class="history-container">
+                <h3>History</h3>
+                <div class="history-list" id="historyList"></div>
+                <button class="btn clear" onclick="clearHistory()">Clear History</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
